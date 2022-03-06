@@ -10,13 +10,12 @@ def pttNBA(url,num):
 		print('URL Error')
 		return
 	run = 0	
-	page(url, num,run)
+	page(url, num,run, resp)
 
-def page(url, num, run):
+def page(url, num, run, resp):
 	if run >= num:
 		return
-		
-	resp = requests.get(url)
+			
 	soup = BeautifulSoup(resp.text, 'html5lib')
 	paging = soup.find('div', 'btn-group btn-group-paging').find_all('a')[1]['href']
 	articles = []
@@ -37,7 +36,7 @@ def page(url, num, run):
 	for article in articles:
 			print(article)					
 	url = 'https://www.ptt.cc' + paging		
-	page(url, num, run+1)
+	page(url, num, run+1, resp)
 	return 
 	
 
